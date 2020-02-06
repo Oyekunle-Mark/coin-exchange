@@ -16,6 +16,6 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    exchange: () => 5.0,
+    exchange: (parent, { type, exchangeRate, margin }) => ({ value: 5.0 }),
   },
 };
