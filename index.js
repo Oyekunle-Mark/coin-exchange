@@ -1,6 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 
 const getRate = require('./utils/getRate');
+const convert = require('./utils/convert');
 
 const typeDefs = gql`
   type ExchangeResponse {
@@ -19,10 +20,11 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     exchange: async (_, { type, exchangeRate, margin }) => {
-      console.log(type, exchangeRate, margin);
-      console.log(await getRate());
+      const rate = await getRate();
+      const priceInDollar = convert(type, rate, margin);
+      const priceInNaira = priceInDollar * exchangeRate;
 
-      return { value: 5 };
+      return { value: priceInNaira };
     },
   },
 };
