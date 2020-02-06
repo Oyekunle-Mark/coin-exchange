@@ -1,5 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 
+const api = require('./utils/getRate');
+
 const typeDefs = gql`
   type ExchangeResponse {
     value: Float!
@@ -16,9 +18,10 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    exchange: (_, { type, exchangeRate, margin }) => {
+    exchange: async (_, { type, exchangeRate, margin }) => {
       // eslint-disable-next-line no-console
       console.log(type, exchangeRate, margin);
+      console.log(await api());
 
       return { value: 5 };
     },
