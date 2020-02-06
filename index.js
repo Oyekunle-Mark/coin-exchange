@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-const api = require('./utils/getRate');
+const getRate = require('./utils/getRate');
 
 const typeDefs = gql`
   type ExchangeResponse {
@@ -21,7 +21,7 @@ const resolvers = {
     exchange: async (_, { type, exchangeRate, margin }) => {
       // eslint-disable-next-line no-console
       console.log(type, exchangeRate, margin);
-      console.log(await api());
+      console.log(await getRate());
 
       return { value: 5 };
     },
