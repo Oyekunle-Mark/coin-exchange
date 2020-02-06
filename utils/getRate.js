@@ -10,7 +10,7 @@ const fetchRate = async () => {
   try {
     const response = (await axios.get(URL)).data;
 
-    return response.bpi.USD.rate_float;
+    return Number(response.bpi.USD.rate_float);
   } catch (err) {
     console.error(`Error getting data: ${err}`);
   }
