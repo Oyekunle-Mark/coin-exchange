@@ -3,18 +3,13 @@ const { ApolloServer, gql } = require('apollo-server');
 const getRate = require('./utils/getRate');
 
 const typeDefs = gql`
-  enum Type {
-    buy
-    sell
-  }
-
   type ExchangeResponse {
     value: Float!
   }
 
   type Query {
     exchange(
-      type: Type!
+      type: String!
       exchangeRate: Float!
       margin: Float!
     ): ExchangeResponse!
