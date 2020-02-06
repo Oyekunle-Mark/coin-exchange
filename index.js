@@ -16,7 +16,12 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    exchange: (_, { type, exchangeRate, margin }) => ({ value: 5.0 }),
+    exchange: (_, { type, exchangeRate, margin }) => {
+      // eslint-disable-next-line no-console
+      console.log(type, exchangeRate, margin);
+
+      return { value: 5 };
+    },
   },
 };
 
