@@ -7,7 +7,7 @@ const api = async () => {
 
   const response = (await axios.get(URL)).data;
 
-  return response;
+  return response.bpi.USD.rate_float;
 };
 
-module.exports = api.bpi.USD.rate_float;
+module.exports = api;
