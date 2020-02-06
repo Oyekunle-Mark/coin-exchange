@@ -20,6 +20,10 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     exchange: async (_, { type, exchangeRate, margin }) => {
+      if (type !== 'sell' || type !== 'buy') {
+        throw new Error('type can only be either "buy" or "sell"');
+      }
+
       const rate = await getRate();
       const priceInDollar = convert(type, rate, margin);
       const priceInNaira = priceInDollar * exchangeRate;
