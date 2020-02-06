@@ -31,4 +31,6 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers });
 
 // eslint-disable-next-line no-console
-server.listen().then(({ url }) => console.log(`🚀  Server ready at ${url}`));
+server
+  .listen({ port: process.env.PORT || 4000 })
+  .then(({ url }) => console.log(`🚀  Server ready at ${url}`));
