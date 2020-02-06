@@ -19,3 +19,8 @@ const resolvers = {
     exchange: (parent, { type, exchangeRate, margin }) => ({ value: 5.0 }),
   },
 };
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+// eslint-disable-next-line no-console
+server.listen().then(({ url }) => console.log(`🚀  Server ready at ${url}`));
