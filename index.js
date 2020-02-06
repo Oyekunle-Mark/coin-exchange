@@ -13,3 +13,9 @@ const typeDefs = gql`
     ): ExchangeResponse!
   }
 `;
+
+const resolvers = {
+  Query: {
+    exchange: () => 5.0,
+  },
+};
