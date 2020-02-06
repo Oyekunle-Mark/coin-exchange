@@ -19,7 +19,6 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     exchange: async (_, { type, exchangeRate, margin }) => {
-      // eslint-disable-next-line no-console
       console.log(type, exchangeRate, margin);
       console.log(await getRate());
 
@@ -30,7 +29,6 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// eslint-disable-next-line no-console
 server
   .listen({ port: process.env.PORT || 4000 })
   .then(({ url }) => console.log(`🚀  Server ready at ${url}`));
