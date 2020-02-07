@@ -1,0 +1,36 @@
+{
+  "name": "coin-exchange",
+  "version": "1.0.0",
+  "description": "Make conversion from bitcoin to naira and back",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oyekunle-Mark/coin-exchange.git"
+  },
+  "keywords": [
+    "coin",
+    "brc",
+    "naira",
+    "usd"
+  ],
+  "author": "oyekunle-mark",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Oyekunle-Mark/coin-exchange/issues"
+  },
+  "homepage": "https://github.com/Oyekunle-Mark/coin-exchange#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.10.0",
+    "axios": "^0.19.2",
+    "graphql": "^14.6.0"
+  }
+}
