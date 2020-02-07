@@ -1,2 +1,3 @@
 # coin-exchange
-A GraphQL API for performing exhange
+
+A GraphQL API for performing exchange
