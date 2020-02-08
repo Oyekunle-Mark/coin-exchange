@@ -1,10 +1,11 @@
 const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+const graphHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
 
 const getPrice = require('./utils/getPrice');
 const computePrice = require('./utils/computePrice');
 
-const typeDefs = gql`
+const schema = buildSchema`
   type calculatePriceResponse {
     price: Float!
   }
@@ -18,30 +19,30 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers = {
-  Query: {
-    calculatePrice: async (_, { type, exchangeRate, margin }) => {
-      if (type.toLowerCase() !== 'sell' && type.toLowerCase() !== 'buy') {
-        throw new Error('type can only be either "buy" or "sell"');
-      }
+const root = {
+  calculatePrice: async (_, { type, exchangeRate, margin }) => {
+    if (type.toLowerCase() !== 'sell' && type.toLowerCase() !== 'buy') {
+      throw new Error('type can only be either "buy" or "sell"');
+    }
 
-      const price = await getPrice();
-      const priceComputed = computePrice(type, price, margin);
-      const priceInNaira = priceComputed * exchangeRate;
+    const price = await getPrice();
+    const priceComputed = computePrice(type, price, margin);
+    const priceInNaira = priceComputed * exchangeRate;
 
-      return { price: priceInNaira };
-    },
+    return { price: priceInNaira };
   },
 };
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
 const app = express();
-server.applyMiddleware({ app });
+app.use(
+  '/graphql',
+  graphHTTP({
+    schema,
+    rootValue: root,
+    graphiql: true,
+  }),
+);
 
-app.listen({ port: process.env.PORT || 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+app.listen(process.env.PORT || 4000, () =>
+  console.log('🚀 Server ready at http://localhost:4000/graphql'),
 );
