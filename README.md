@@ -6,7 +6,7 @@ A GraphQL API for finding the price of 1BTC in Naira.
 
 To set this project up locally, clone this repository to your computer. At the root of the cloned folder, use `npm i` to install dependencies.
 
-To run tests, use `npm test`.
+To run unit tests, use `npm test`.
 
 ## Deploy
 
