@@ -1,7 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 
 const getPrice = require('./utils/getPrice');
-const convert = require('./utils/convert');
+const convert = require('./utils/computePrice');
 
 const typeDefs = gql`
   type calculatePriceResponse {
