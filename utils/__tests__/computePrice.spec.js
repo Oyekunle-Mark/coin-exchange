@@ -22,4 +22,11 @@ describe('computePrice', () => {
     expect(result).toBeGreaterThan(price);
     expect(result).not.toEqual(price);
   });
+
+  it('Computes the right price on "sell"', () => {
+    const price = 5000;
+    const result = computePrice('sell', price, 0.2);
+
+    expect(result).toEqual(4990);
+  });
 });
