@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server-express');
 
 const getPrice = require('./utils/getPrice');
 const computePrice = require('./utils/computePrice');
@@ -19,7 +19,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    exchange: async (_, { type, exchangeRate, margin }) => {
+    calculatePrice: async (_, { type, exchangeRate, margin }) => {
       if (type.toLowerCase() !== 'sell' && type.toLowerCase() !== 'buy') {
         throw new Error('type can only be either "buy" or "sell"');
       }
