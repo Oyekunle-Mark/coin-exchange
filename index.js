@@ -28,7 +28,7 @@ const resolvers = {
       const priceComputed = computePrice(type, price, margin);
       const priceInNaira = priceComputed * exchangeRate;
 
-      return { value: priceInNaira };
+      return { price: priceInNaira };
     },
   },
 };
