@@ -5,7 +5,7 @@ const { buildSchema } = require('graphql');
 const getPrice = require('./utils/getPrice');
 const computePrice = require('./utils/computePrice');
 
-const schema = buildSchema`
+const schema = buildSchema(`
   type calculatePriceResponse {
     price: Float!
   }
@@ -17,7 +17,7 @@ const schema = buildSchema`
       exchangeRate: Float!
     ): calculatePriceResponse!
   }
-`;
+`);
 
 const root = {
   calculatePrice: async (_, { type, exchangeRate, margin }) => {
