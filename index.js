@@ -1,45 +1,60 @@
-const { ApolloServer, gql } = require('apollo-server');
+const express = require('express');
+const graphHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
 
-const getRate = require('./utils/getRate');
-const convert = require('./utils/convert');
+const getPrice = require('./utils/getPrice');
+const computePrice = require('./utils/computePrice');
 
-const typeDefs = gql`
-  type ExchangeResponse {
-    value: Float!
+const schema = buildSchema(`
+  type calculatePriceResponse {
+    price: Float!
   }
 
   type Query {
-    exchange(
+    calculatePrice(
       type: String!
-      exchangeRate: Float!
       margin: Float!
-    ): ExchangeResponse!
+      exchangeRate: Float!
+    ): calculatePriceResponse!
   }
-`;
+`);
 
-const resolvers = {
-  Query: {
-    exchange: async (_, { type, exchangeRate, margin }) => {
-      if (type.toLowerCase() !== 'sell' && type.toLowerCase() !== 'buy') {
-        throw new Error('type can only be either "buy" or "sell"');
-      }
+const root = {
+  calculatePrice: async ({ type, exchangeRate, margin }) => {
+    if (type.toLowerCase() !== 'sell' && type.toLowerCase() !== 'buy') {
+      throw new Error('type can only be either "buy" or "sell"');
+    }
 
-      const rate = await getRate();
-      const priceInDollar = convert(type, rate, margin);
-      const priceInNaira = priceInDollar * exchangeRate;
+    const price = await getPrice();
+    const priceComputed = computePrice(type, price, margin);
+    const priceInNaira = priceComputed * exchangeRate;
 
-      return { value: priceInNaira };
-    },
+    return { price: priceInNaira };
   },
 };
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  introspection: true,
-  playground: true,
-});
+const app = express();
 
-server
-  .listen({ port: process.env.PORT || 4000 })
-  .then(({ url }) => console.log(`🚀  Server ready at ${url}`));
+app.use(
+  '/graphql',
+  graphHTTP({
+    schema,
+    rootValue: root,
+  }),
+);
+
+// mount the GraphiQL interface
+app.use(
+  '/graphiql',
+  graphHTTP({
+    schema,
+    rootValue: root,
+    graphiql: true,
+  }),
+);
+
+app.listen(process.env.PORT || 4000, () =>
+  console.log(
+    '🚀 Running a GraphQL API server at http://localhost:4000/graphql',
+  ),
+);
