@@ -24,8 +24,8 @@ const resolvers = {
         throw new Error('type can only be either "buy" or "sell"');
       }
 
-      const rate = await getPrice();
-      const priceInDollar = convert(type, rate, margin);
+      const price = await getPrice();
+      const priceInDollar = convert(type, price, margin);
       const priceInNaira = priceInDollar * exchangeRate;
 
       return { value: priceInNaira };
