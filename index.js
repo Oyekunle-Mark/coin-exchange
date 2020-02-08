@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-const getRate = require('./utils/getPrice');
+const getPrice = require('./utils/getPrice');
 const convert = require('./utils/convert');
 
 const typeDefs = gql`
@@ -24,7 +24,7 @@ const resolvers = {
         throw new Error('type can only be either "buy" or "sell"');
       }
 
-      const rate = await getRate();
+      const rate = await getPrice();
       const priceInDollar = convert(type, rate, margin);
       const priceInNaira = priceInDollar * exchangeRate;
 
