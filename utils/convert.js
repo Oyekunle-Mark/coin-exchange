@@ -6,9 +6,9 @@
  * @returns {number} the calculated price
  */
 const convert = (type, price, margin) => {
-  const difference = price * (margin / 100);
+  const computedMargin = price * (margin / 100);
 
-  return type === 'sell' ? price - difference : price + difference;
+  return type === 'sell' ? price - computedMargin : price + computedMargin;
 };
 
 module.exports = convert;
