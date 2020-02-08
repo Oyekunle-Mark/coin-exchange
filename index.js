@@ -1,7 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 
 const getPrice = require('./utils/getPrice');
-const convert = require('./utils/computePrice');
+const computePrice = require('./utils/computePrice');
 
 const typeDefs = gql`
   type calculatePriceResponse {
@@ -25,7 +25,7 @@ const resolvers = {
       }
 
       const price = await getPrice();
-      const priceInDollar = convert(type, price, margin);
+      const priceInDollar = computePrice(type, price, margin);
       const priceInNaira = priceInDollar * exchangeRate;
 
       return { value: priceInNaira };
