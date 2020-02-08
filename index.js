@@ -36,6 +36,14 @@ const root = {
 const app = express();
 
 app.use(
+  '/graphql',
+  graphHTTP({
+    schema,
+    rootValue: root,
+  }),
+);
+
+app.use(
   '/graphiql',
   graphHTTP({
     schema,
@@ -45,5 +53,7 @@ app.use(
 );
 
 app.listen(process.env.PORT || 4000, () =>
-  console.log('🚀 Server ready at http://localhost:4000/graphiql'),
+  console.log(
+    '🚀 Running a GraphQL API server at http://localhost:4000/graphql',
+  ),
 );
