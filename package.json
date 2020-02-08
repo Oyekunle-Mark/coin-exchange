@@ -29,6 +29,7 @@
     "eslint-plugin-import": "^2.20.1"
   },
   "dependencies": {
+    "apollo-server": "^2.10.0",
     "apollo-server-express": "^2.10.0",
     "axios": "^0.19.2",
     "express": "^4.17.1",
