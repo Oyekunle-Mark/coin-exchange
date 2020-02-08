@@ -1,3 +1,4 @@
+const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 
 const getPrice = require('./utils/getPrice');
@@ -38,6 +39,9 @@ const server = new ApolloServer({
   resolvers,
 });
 
-server
-  .listen({ port: process.env.PORT || 4000 })
-  .then(({ url }) => console.log(`🚀  Server ready at ${url}`));
+const app = express();
+server.applyMiddleware({ app });
+
+app.listen({ port: process.env.PORT || 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+);
