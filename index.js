@@ -4,8 +4,8 @@ const getRate = require('./utils/getRate');
 const convert = require('./utils/convert');
 
 const typeDefs = gql`
-  type ExchangeResponse {
-    value: Float!
+  type calculatePriceResponse {
+    price: Float!
   }
 
   type Query {
@@ -13,7 +13,7 @@ const typeDefs = gql`
       type: String!
       margin: Float!
       exchangeRate: Float!
-    ): ExchangeResponse!
+    ): calculatePriceResponse!
   }
 `;
 
