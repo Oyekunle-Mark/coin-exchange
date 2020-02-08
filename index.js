@@ -20,7 +20,7 @@ const schema = buildSchema(`
 `);
 
 const root = {
-  calculatePrice: async (_, { type, exchangeRate, margin }) => {
+  calculatePrice: async ({ type, exchangeRate, margin }) => {
     if (type.toLowerCase() !== 'sell' && type.toLowerCase() !== 'buy') {
       throw new Error('type can only be either "buy" or "sell"');
     }
@@ -34,8 +34,9 @@ const root = {
 };
 
 const app = express();
+
 app.use(
-  '/graphql',
+  '/graphiql',
   graphHTTP({
     schema,
     rootValue: root,
@@ -44,5 +45,5 @@ app.use(
 );
 
 app.listen(process.env.PORT || 4000, () =>
-  console.log('🚀 Server ready at http://localhost:4000/graphql'),
+  console.log('🚀 Server ready at http://localhost:4000/graphiql'),
 );
