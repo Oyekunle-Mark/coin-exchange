@@ -7,11 +7,19 @@ describe('computePrice', () => {
     expect(typeof result).toEqual('number');
   });
 
-  it('Returns lesser number of "sell"', () => {
+  it('Returns lesser number on "sell"', () => {
     const price = 5000;
     const result = computePrice('sell', price, 0.2);
 
     expect(result).toBeLessThan(price);
+    expect(result).not.toEqual(price);
+  });
+
+  it('Returns greater number on "buy"', () => {
+    const price = 5000;
+    const result = computePrice('buy', price, 0.2);
+
+    expect(result).toBeGreaterThan(price);
     expect(result).not.toEqual(price);
   });
 });
