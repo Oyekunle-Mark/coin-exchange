@@ -9,10 +9,10 @@ const typeDefs = gql`
   }
 
   type Query {
-    exchange(
+    calculatePrice(
       type: String!
-      exchangeRate: Float!
       margin: Float!
+      exchangeRate: Float!
     ): ExchangeResponse!
   }
 `;
