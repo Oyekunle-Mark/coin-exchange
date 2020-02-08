@@ -25,8 +25,8 @@ const resolvers = {
       }
 
       const price = await getPrice();
-      const priceInDollar = computePrice(type, price, margin);
-      const priceInNaira = priceInDollar * exchangeRate;
+      const priceComputed = computePrice(type, price, margin);
+      const priceInNaira = priceComputed * exchangeRate;
 
       return { value: priceInNaira };
     },
