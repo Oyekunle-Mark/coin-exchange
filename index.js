@@ -43,6 +43,7 @@ app.use(
   }),
 );
 
+// mount the GraphiQL interface
 app.use(
   '/graphiql',
   graphHTTP({
